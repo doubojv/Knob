@@ -2,8 +2,8 @@
 
 ## **Pendências**
 
- **Criar o backend**
+ **Criar Shows**
+ **Fazer conexão com a API do IMDB**
 
-  - Criar os Modelos,Seviços, Controllers
 
  
