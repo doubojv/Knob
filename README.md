@@ -2,12 +2,8 @@
 
 ## **Pendências**
 
-**Criar Database no PostgreSQL**
- - Definir Atributos das entidades
- - Configurar PostgreSQL
+ **Criar Shows**
+ **Fazer conexão com a API do IMDB**
 
- **Criar o backend**
-
- - Vincular com Prisma
 
  
