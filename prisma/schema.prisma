@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model favorites {
+  id_user BigInt   @db.UnsignedBigInt
+  id_show BigInt   @db.UnsignedBigInt
+  data    DateTime @db.Date
+
+  @@id([id_user, id_show])
+  @@index([id_show], map: "id_show")
+}
+
+model rate_season {
+  id_rate   BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  id_user   BigInt   @db.UnsignedBigInt
+  id_season BigInt   @db.UnsignedBigInt
+  nota      Int
+  review    String?  @db.Text
+  date      DateTime @db.Date
+
+  @@index([id_season], map: "id_season")
+  @@index([id_user], map: "id_user")
+}
+
+model rate_show {
+  id_rate BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  id_user BigInt   @db.UnsignedBigInt
+  id_show BigInt   @db.UnsignedBigInt
+  nota    Int
+  review  String?  @db.Text
+  date    DateTime @db.Date
+
+  @@index([id_show], map: "id_show")
+  @@index([id_user], map: "id_user")
+}
+
+model seasons {
+  id_season     BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  season_number Int
+  qtd_episodes  Int
+  id_show       BigInt @db.UnsignedBigInt
+
+  @@index([id_show], map: "id_show")
+}
+
+model shows {
+  id_show        BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
+  titulo         String  @db.VarChar(255)
+  ano_inicio     Int     @db.Year
+  ano_fim        Int?    @db.Year
+  genero         String  @db.VarChar(100)
+  descricao      String? @db.Text
+  elenco         String? @db.Text
+  qtd_temporadas Int
+}
+
+model users {
+  id_user       BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  nome          String   @db.VarChar(255)
+  email         String   @unique(map: "email") @db.VarChar(255)
+  senha         String   @db.VarChar(255)
+  data_cadastro DateTime @db.Date
+}
+
+model watchlist {
+  id_user BigInt   @db.UnsignedBigInt
+  id_show BigInt   @db.UnsignedBigInt
+  date    DateTime @db.Date
+
+  @@id([id_user, id_show])
+  @@index([id_show], map: "id_show")
+}
