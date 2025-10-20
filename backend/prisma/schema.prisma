@@ -7,19 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model favorites {
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
+model Favorite {
+  id_user Int
+  id_show Int
   data    DateTime @db.Date
 
   @@id([id_user, id_show])
   @@index([id_show], map: "id_show")
 }
 
-model rate_season {
-  id_rate   BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  id_user   BigInt   @db.UnsignedBigInt
-  id_season BigInt   @db.UnsignedBigInt
+model RateSeason {
+  id_rate   Int      @id @default(autoincrement())
+  id_user   Int
+  id_season Int
   nota      Int
   review    String?  @db.Text
   date      DateTime @db.Date
@@ -28,10 +28,10 @@ model rate_season {
   @@index([id_user], map: "id_user")
 }
 
-model rate_show {
-  id_rate BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
+model RateShow {
+  id_rate Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
   nota    Int
   review  String?  @db.Text
   date    DateTime @db.Date
@@ -40,39 +40,85 @@ model rate_show {
   @@index([id_user], map: "id_user")
 }
 
-model seasons {
-  id_season     BigInt @id @default(autoincrement()) @db.UnsignedBigInt
-  season_number Int
-  qtd_episodes  Int
-  id_show       BigInt @db.UnsignedBigInt
+model Season {
+  id           Int      @id @default(autoincrement())
+  tmdbId       Int      @unique
+  showId       Int
+  name         String
+  overview     String?  @db.Text
+  seasonNumber Int
+  airDate      DateTime?
+  posterPath   String?
+  voteAverage  Float?
 
-  @@index([id_show], map: "id_show")
+  show         Show     @relation(fields: [showId], references: [id])
+  episodes     Episode[]
 }
 
-model shows {
-  id_show        BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
-  titulo         String  @db.VarChar(255)
-  ano_inicio     Int     @db.Year
-  ano_fim        Int?    @db.Year
-  genero         String  @db.VarChar(100)
-  descricao      String? @db.Text
-  elenco         String? @db.Text
-  qtd_temporadas Int
+model Show {
+  id            Int      @id @default(autoincrement())
+  tmdbId        Int      @unique
+  name          String
+  posterPath    String?
+  backdropPath  String?
+  overview      String?  @db.Text
+  firstAirDate  DateTime?
+  voteAverage   Float?
+  voteCount     Int?
+  genre         String?
+  status        String?
+  tagline       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  seasons       Season[]
+  reviews       Review[]
 }
 
-model users {
-  id_user       BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  nome          String   @db.VarChar(255)
-  email         String   @unique(map: "email") @db.VarChar(255)
-  senha         String   @db.VarChar(255)
-  data_cadastro DateTime @db.Date
+model User {
+  id_user Int @id @default(autoincrement())
+  nome    String   @db.VarChar(255)
+  email   String   @unique(map: "email") @db.VarChar(255)
+  senha   String   @db.VarChar(255)
+
+  reviews Review[]
 }
 
-model watchlist {
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
+model Watchlist {
+  id_user Int
+  id_show Int
   date    DateTime @db.Date
 
   @@id([id_user, id_show])
   @@index([id_show], map: "id_show")
+}
+
+model Episode {
+  id             Int       @id @default(autoincrement())
+  tmdbId         Int       @unique
+  seasonId       Int
+  name           String
+  overview       String?   @db.Text
+  episodeNumber  Int
+  airDate        DateTime?
+  stillPath      String?
+  runtime        Int?
+  voteAverage    Float?
+  voteCount      Int?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  season         Season    @relation(fields: [seasonId], references: [id])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  showId    Int
+  userId    Int
+  content   String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  show      Show     @relation(fields: [showId], references: [id])
+  user      User     @relation(fields: [userId], references: [id_user])
 }
