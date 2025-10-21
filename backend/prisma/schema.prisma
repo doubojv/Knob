@@ -41,6 +41,7 @@ model Show {
 
   seasons       Season[]
   watchlist     Watchlist[]
+  favorite      Favorite[]
 }
 
 model User {
@@ -50,6 +51,7 @@ model User {
   senha   String   @db.VarChar(255)
 
   watchlist Watchlist[]
+  favorite  Favorite[]
 }
 
 model Watchlist {
@@ -64,6 +66,18 @@ model Watchlist {
   @@unique([id_user, id_show])
 }
 
+
+model Favorite {
+  id      Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
+  date    DateTime @default(now())
+
+  user User @relation(fields: [id_user], references: [id_user])
+  show Show @relation(fields: [id_show], references: [id_show])
+
+  @@unique([id_user, id_show])
+}
 
 model Episode {
   id             Int       @id @default(autoincrement())
