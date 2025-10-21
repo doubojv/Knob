@@ -55,7 +55,7 @@ export class ShowsService {
           airDate: s.air_date ? new Date(s.air_date) : null,
           posterPath: s.poster_path,
           voteAverage: s.vote_average,
-          showId: show.id,
+          showId: show.id_show,
         },
         create: {
           tmdbId: s.id,
@@ -65,7 +65,7 @@ export class ShowsService {
           airDate: s.air_date ? new Date(s.air_date) : null,
           posterPath: s.poster_path,
           voteAverage: s.vote_average,
-          showId: show.id,
+          showId: show.id_show,
         },
       });
     }
