@@ -7,72 +7,109 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model favorites {
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
-  data    DateTime @db.Date
 
-  @@id([id_user, id_show])
-  @@index([id_show], map: "id_show")
+model User {
+  id_user Int @id @default(autoincrement())
+  nome    String   @db.VarChar(255)
+  email   String   @unique(map: "email") @db.VarChar(255)
+  senha   String   @db.VarChar(255)
+
+  watchlist Watchlist[]
+  favorite  Favorite[]
+  review    Review[]
 }
 
-model rate_season {
-  id_rate   BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  id_user   BigInt   @db.UnsignedBigInt
-  id_season BigInt   @db.UnsignedBigInt
-  nota      Int
-  review    String?  @db.Text
-  date      DateTime @db.Date
+model Show {
+  id_show       Int      @id @default(autoincrement())
+  tmdbId        Int      @unique
+  name          String
+  posterPath    String?
+  backdropPath  String?
+  overview      String?  @db.Text
+  firstAirDate  DateTime?
+  voteAverage   Float?
+  voteCount     Int?
+  genre         String?
+  status        String?
+  tagline       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  @@index([id_season], map: "id_season")
-  @@index([id_user], map: "id_user")
+  seasons       Season[]
+  watchlist     Watchlist[]
+  favorite      Favorite[]
+  review        Review[]
 }
 
-model rate_show {
-  id_rate BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
-  nota    Int
-  review  String?  @db.Text
-  date    DateTime @db.Date
+model Season {
+  id_season           Int      @id @default(autoincrement())
+  tmdbId       Int      @unique
+  showId       Int
+  name         String
+  overview     String?  @db.Text
+  seasonNumber Int
+  airDate      DateTime?
+  posterPath   String?
+  voteAverage  Float?
 
-  @@index([id_show], map: "id_show")
-  @@index([id_user], map: "id_user")
+  show         Show     @relation(fields: [showId], references: [id_show])
+  episodes     Episode[]
+  review       Review[]
 }
 
-model seasons {
-  id_season     BigInt @id @default(autoincrement()) @db.UnsignedBigInt
-  season_number Int
-  qtd_episodes  Int
-  id_show       BigInt @db.UnsignedBigInt
+model Episode {
+  id             Int       @id @default(autoincrement())
+  tmdbId         Int       @unique
+  seasonId       Int
+  name           String
+  overview       String?   @db.Text
+  episodeNumber  Int
+  airDate        DateTime?
+  stillPath      String?
+  runtime        Int?
+  voteAverage    Float?
+  voteCount      Int?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  @@index([id_show], map: "id_show")
+  season         Season    @relation(fields: [seasonId], references: [id_season])
 }
 
-model shows {
-  id_show        BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
-  titulo         String  @db.VarChar(255)
-  ano_inicio     Int     @db.Year
-  ano_fim        Int?    @db.Year
-  genero         String  @db.VarChar(100)
-  descricao      String? @db.Text
-  elenco         String? @db.Text
-  qtd_temporadas Int
+model Watchlist {
+  id      Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
+  date    DateTime @default(now())
+
+  user User @relation(fields: [id_user], references: [id_user])
+  show Show @relation(fields: [id_show], references: [id_show])
+
+  @@unique([id_user, id_show])
 }
 
-model users {
-  id_user       BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  nome          String   @db.VarChar(255)
-  email         String   @unique(map: "email") @db.VarChar(255)
-  senha         String   @db.VarChar(255)
-  data_cadastro DateTime @db.Date
+model Favorite {
+  id      Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
+  date    DateTime @default(now())
+
+  user User @relation(fields: [id_user], references: [id_user])
+  show Show @relation(fields: [id_show], references: [id_show])
+
+  @@unique([id_user, id_show])
 }
 
-model watchlist {
-  id_user BigInt   @db.UnsignedBigInt
-  id_show BigInt   @db.UnsignedBigInt
-  date    DateTime @db.Date
+model Review {
+  id          Int      @id @default(autoincrement())
+  id_user     Int
+  id_show     Int?
+  id_season   Int?
+  content    String?  @db.Text
+  rating     Float?   // nota opcional
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  @@id([id_user, id_show])
-  @@index([id_show], map: "id_show")
+  user       User     @relation(fields: [id_user], references: [id_user])
+  show       Show?    @relation(fields: [id_show], references: [id_show])
+  season     Season?  @relation(fields: [id_season], references: [id_season])
 }
