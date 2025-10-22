@@ -3,10 +3,9 @@
 ## **Pendências Features**
 
  **Implementar seguintes Features:**
- - ⚡️Favorites
- - ⚡️Rate Season
- - ⚡️Rate Show
- - ⚡️Review
+ - ⚡️Friends
+ - ⚡️Log
+
  
 ## Dependências da API
 👩‍💻 Criar algoritmo para popular Banco
