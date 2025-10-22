@@ -5,6 +5,7 @@ import { ShowsModule } from './shows/shows.module';
 import { TmdbModule } from './tmdb/tmdb.module';
 import { WatchlistModule } from './watchlist/watchlist.module';
 import { FavoriteModule } from './favorite/favorite.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { FavoriteModule } from './favorite/favorite.module';
     ShowsModule,
     TmdbModule,
     WatchlistModule,
-    FavoriteModule
+    FavoriteModule,
+    ReviewModule
   ],
   controllers: [],
   providers: [],

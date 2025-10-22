@@ -8,19 +8,15 @@ datasource db {
 }
 
 
-model Season {
-  id           Int      @id @default(autoincrement())
-  tmdbId       Int      @unique
-  showId       Int
-  name         String
-  overview     String?  @db.Text
-  seasonNumber Int
-  airDate      DateTime?
-  posterPath   String?
-  voteAverage  Float?
+model User {
+  id_user Int @id @default(autoincrement())
+  nome    String   @db.VarChar(255)
+  email   String   @unique(map: "email") @db.VarChar(255)
+  senha   String   @db.VarChar(255)
 
-  show         Show     @relation(fields: [showId], references: [id_show])
-  episodes     Episode[]
+  watchlist Watchlist[]
+  favorite  Favorite[]
+  review    Review[]
 }
 
 model Show {
@@ -42,41 +38,23 @@ model Show {
   seasons       Season[]
   watchlist     Watchlist[]
   favorite      Favorite[]
+  review        Review[]
 }
 
-model User {
-  id_user Int @id @default(autoincrement())
-  nome    String   @db.VarChar(255)
-  email   String   @unique(map: "email") @db.VarChar(255)
-  senha   String   @db.VarChar(255)
+model Season {
+  id_season           Int      @id @default(autoincrement())
+  tmdbId       Int      @unique
+  showId       Int
+  name         String
+  overview     String?  @db.Text
+  seasonNumber Int
+  airDate      DateTime?
+  posterPath   String?
+  voteAverage  Float?
 
-  watchlist Watchlist[]
-  favorite  Favorite[]
-}
-
-model Watchlist {
-  id      Int      @id @default(autoincrement())
-  id_user Int
-  id_show Int
-  date    DateTime @default(now())
-
-  user User @relation(fields: [id_user], references: [id_user])
-  show Show @relation(fields: [id_show], references: [id_show])
-
-  @@unique([id_user, id_show])
-}
-
-
-model Favorite {
-  id      Int      @id @default(autoincrement())
-  id_user Int
-  id_show Int
-  date    DateTime @default(now())
-
-  user User @relation(fields: [id_user], references: [id_user])
-  show Show @relation(fields: [id_show], references: [id_show])
-
-  @@unique([id_user, id_show])
+  show         Show     @relation(fields: [showId], references: [id_show])
+  episodes     Episode[]
+  review       Review[]
 }
 
 model Episode {
@@ -94,6 +72,44 @@ model Episode {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  season         Season    @relation(fields: [seasonId], references: [id])
+  season         Season    @relation(fields: [seasonId], references: [id_season])
 }
 
+model Watchlist {
+  id      Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
+  date    DateTime @default(now())
+
+  user User @relation(fields: [id_user], references: [id_user])
+  show Show @relation(fields: [id_show], references: [id_show])
+
+  @@unique([id_user, id_show])
+}
+
+model Favorite {
+  id      Int      @id @default(autoincrement())
+  id_user Int
+  id_show Int
+  date    DateTime @default(now())
+
+  user User @relation(fields: [id_user], references: [id_user])
+  show Show @relation(fields: [id_show], references: [id_show])
+
+  @@unique([id_user, id_show])
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  id_user     Int
+  id_show     Int?
+  id_season   Int?
+  content    String?  @db.Text
+  rating     Float?   // nota opcional
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [id_user], references: [id_user])
+  show       Show?    @relation(fields: [id_show], references: [id_show])
+  season     Season?  @relation(fields: [id_season], references: [id_season])
+}
