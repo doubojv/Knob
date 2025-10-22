@@ -13,7 +13,7 @@ export class ReviewService {
       id_user: createReviewDto.id_user,
       id_show: createReviewDto.id_show?? null,
       id_season: createReviewDto.id_season?? null,
-      rating: createReviewDto.rating,
+      id_rating: createReviewDto.id_rating?? null,
       content: createReviewDto.content,
       },
     });
