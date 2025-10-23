@@ -3,14 +3,15 @@
 ## **Pendências Features**
 
  **Implementar seguintes Features:**
- - ⚡️Friends
- - ⚡️Log
+ - ⚡️Login
+ - ⚡️Home Page 
 
  
 ## Dependências da API
 👩‍💻 Criar algoritmo para popular Banco
 
 🧠 Criar Features dependentes da API:
+ - ⚡️Shows
  - ⚡️Seasons
  - ⚡️Episodes
 
