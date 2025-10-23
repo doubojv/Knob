@@ -8,6 +8,7 @@ import { FavoriteModule } from './favorite/favorite.module';
 import { ReviewModule } from './review/review.module';
 import { RatingModule } from './rating/rating.module';
 import { LogModule } from './log/log.module';
+import { FriendshipModule } from './friendship/friendship.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { LogModule } from './log/log.module';
     FavoriteModule,
     ReviewModule,
     RatingModule,
-    LogModule
+    LogModule,
+    FriendshipModule
   ],
   controllers: [],
   providers: [],

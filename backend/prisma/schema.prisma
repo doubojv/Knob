@@ -14,11 +14,13 @@ model User {
   email   String   @unique(map: "email") @db.VarChar(255)
   senha   String   @db.VarChar(255)
 
-  watchlist Watchlist[]
-  favorite  Favorite[]
-  review    Review[]
-  rating    Rating[]
-  log       Log[]
+  watchlist       Watchlist[]
+  favorite        Favorite[]
+  review          Review[]
+  rating          Rating[]
+  log             Log[]
+  friendsSent     Friendship[] @relation("friends_sent")
+  friendsReceived Friendship[] @relation("friends_received")
 }
 
 model Show {
@@ -158,4 +160,17 @@ model Log {
   season      Season?   @relation(fields: [id_season], references: [id_season])
   review      Review?   @relation(fields: [id_review], references: [id])
   rating      Rating?   @relation(fields: [id_rating], references: [id])
+}
+
+model Friendship {
+  id           Int      @id @default(autoincrement())
+  id_user      Int
+  id_friend    Int
+  status       String   @default("pending") // pending | accepted | refused
+  createdAt    DateTime @default(now())
+
+  user   User @relation("friends_sent", fields: [id_user], references: [id_user])
+  friend User @relation("friends_received", fields: [id_friend], references: [id_user])
+
+  @@unique([id_user, id_friend]) 
 }
