@@ -18,6 +18,7 @@ model User {
   favorite  Favorite[]
   review    Review[]
   rating    Rating[]
+  log       Log[]
 }
 
 model Show {
@@ -41,6 +42,7 @@ model Show {
   favorite      Favorite[]
   review        Review[]
   rating        Rating[]
+  log           Log[]
 }
 
 model Season {
@@ -58,6 +60,7 @@ model Season {
   episodes     Episode[]
   review       Review[]
   rating       Rating[]
+  log          Log[]
 }
 
 model Episode {
@@ -116,6 +119,7 @@ model Review {
   show       Show?    @relation(fields: [id_show], references: [id_show])
   season     Season?  @relation(fields: [id_season], references: [id_season])
   rating     Rating?  @relation(fields: [id_rating], references: [id])
+  log        Log[]
 }
 
 model Rating {
@@ -123,7 +127,7 @@ model Rating {
   id_user     Int
   id_show     Int?
   id_season   Int?
-  rating      Float    // ex: 0.0 a 10.0
+  rating      Float    
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -131,7 +135,27 @@ model Rating {
   show       Show?    @relation(fields: [id_show], references: [id_show])
   season     Season?  @relation(fields: [id_season], references: [id_season])
   review     Review[] 
+  log        Log[]
 
   @@unique([id_user, id_show])
   @@unique([id_user, id_season])
+}
+
+model Log {
+  id          Int       @id @default(autoincrement())
+  id_user     Int
+  id_show     Int?
+  id_season   Int?
+  id_review   Int?
+  id_rating   Int?
+  watchedAt   DateTime  @default(now())
+  rewatch     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [id_user], references: [id_user])
+  show        Show?     @relation(fields: [id_show], references: [id_show])
+  season      Season?   @relation(fields: [id_season], references: [id_season])
+  review      Review?   @relation(fields: [id_review], references: [id])
+  rating      Rating?   @relation(fields: [id_rating], references: [id])
 }

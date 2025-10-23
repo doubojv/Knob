@@ -7,6 +7,7 @@ import { WatchlistModule } from './watchlist/watchlist.module';
 import { FavoriteModule } from './favorite/favorite.module';
 import { ReviewModule } from './review/review.module';
 import { RatingModule } from './rating/rating.module';
+import { LogModule } from './log/log.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { RatingModule } from './rating/rating.module';
     WatchlistModule,
     FavoriteModule,
     ReviewModule,
-    RatingModule
+    RatingModule,
+    LogModule
   ],
   controllers: [],
   providers: [],
