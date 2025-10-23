@@ -4,20 +4,24 @@ import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class TmdbService {
-  private readonly apiKey = process.env.TMDB_API_KEY;
-  private readonly baseUrl = 'https://api.themoviedb.org/3';
-
-  constructor(private readonly httpService: HttpService) {}
+  private readonly API_KEY = process.env.TMDB_API_KEY;
+  private readonly BASE_URL = 'https://api.themoviedb.org/3';
 
   async getShowDetails(tmdbId: number) {
-    const url = `${this.baseUrl}/tv/${tmdbId}?language=en-US&api_key=${this.apiKey}`;
-    const { data } = await this.httpService.axiosRef.get(url);
-    return data;
+    const url = `${this.BASE_URL}/tv/${tmdbId}?api_key=${this.API_KEY}&language=en-US`;
+    const response = await fetch(url);
+    return response.json();
   }
 
-  async getSeasonDetails(tmdbId: number, seasonNumber: number) {
-    const url = `${this.baseUrl}/tv/${tmdbId}/season/${seasonNumber}?language=en-US&api_key=${this.apiKey}`;
-    const { data } = await this.httpService.axiosRef.get(url);
-    return data;
+  async getShowCast(tmdbId: number) {
+    const url = `${this.BASE_URL}/tv/${tmdbId}/credits?api_key=${this.API_KEY}&language=en-US`;
+    const response = await fetch(url);
+    return response.json();
+  }
+
+  async getSeasonDetails(showTmdbId: number, seasonNumber: number) {
+    const url = `${this.BASE_URL}/tv/${showTmdbId}/season/${seasonNumber}?api_key=${this.API_KEY}&language=en-US`;
+    const response = await fetch(url);
+    return response.json();
   }
 }
