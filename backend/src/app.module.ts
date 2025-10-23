@@ -9,6 +9,8 @@ import { ReviewModule } from './review/review.module';
 import { RatingModule } from './rating/rating.module';
 import { LogModule } from './log/log.module';
 import { FriendshipModule } from './friendship/friendship.module';
+import { SeasonModule } from './season/season.module';
+import { EpisodeModule } from './episode/episode.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { FriendshipModule } from './friendship/friendship.module';
     ReviewModule,
     RatingModule,
     LogModule,
-    FriendshipModule
+    FriendshipModule,
+    SeasonModule,
+    EpisodeModule
   ],
   controllers: [],
   providers: [],

@@ -23,46 +23,66 @@ model User {
   friendsReceived Friendship[] @relation("friends_received")
 }
 
-model Show {
-  id_show       Int      @id @default(autoincrement())
-  tmdbId        Int      @unique
-  name          String
-  posterPath    String?
-  backdropPath  String?
-  overview      String?  @db.Text
-  firstAirDate  DateTime?
-  voteAverage   Float?
-  voteCount     Int?
-  genre         String?
-  status        String?
-  tagline       String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model Shows {
+  id_show           Int      @id @default(autoincrement())
+  tmdbId            Int      @unique
+  name              String
+  originalName      String?
+  posterPath        String?
+  backdropPath      String?
+  overview          String?  @db.Text
+  firstAirDate      DateTime?
+  lastAirDate       DateTime?
+  numberOfSeasons   Int?
+  numberOfEpisodes  Int?
+  episodeRunTime    Json?    // array of integers
+  inProduction      Boolean?
+  creators          Json?    // Array of { id, name, profile_path }
+  cast              Json?    // Array of cast members from /credits endpoint
+  genres            Json?    // Array of { id, name }
+  category          String   @default("Other") // "Drama" | "Comedy" | "Drama, Comedy" | "Other"
+  networks          Json?    // Array of { id, name, logo_path, origin_country }
+  productionCompanies Json?  // Array of { id, name, logo_path, origin_country }
+  originCountry     Json?    // Array of country codes
+  originalLanguage  String?
+  spokenLanguages   Json?    // Array of { english_name, iso_639_1, name }
+  popularity        Float?
+  status            String?  // e.g., "Ended", "Running"
+  tagline           String?
+  type              String?
+  voteAverage       Float?
+  voteCount         Int?
+  adult             Boolean?
+  homepage          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  seasons       Season[]
-  watchlist     Watchlist[]
-  favorite      Favorite[]
-  review        Review[]
-  rating        Rating[]
-  log           Log[]
+  seasons           Season[]
+  watchlist         Watchlist[]
+  favorite          Favorite[]
+  review            Review[]
+  rating            Rating[]
+  log               Log[]
 }
 
 model Season {
-  id_season           Int      @id @default(autoincrement())
-  tmdbId       Int      @unique
-  showId       Int
-  name         String
-  overview     String?  @db.Text
-  seasonNumber Int
-  airDate      DateTime?
-  posterPath   String?
-  voteAverage  Float?
+  id_season        Int      @id @default(autoincrement())
+  tmdbId           Int      @unique
+  showId           Int
+  name             String
+  overview         String?  @db.Text
+  seasonNumber     Int
+  airDate          DateTime?
+  posterPath       String?
+  voteAverage      Float?
+  numberOfEpisodes Int?
+  
 
-  show         Show     @relation(fields: [showId], references: [id_show])
-  episodes     Episode[]
-  review       Review[]
-  rating       Rating[]
-  log          Log[]
+  show             Shows     @relation(fields: [showId], references: [id_show])
+  episodes         Episode[]
+  review           Review[]
+  rating           Rating[]
+  log              Log[]
 }
 
 model Episode {
@@ -75,8 +95,6 @@ model Episode {
   airDate        DateTime?
   stillPath      String?
   runtime        Int?
-  voteAverage    Float?
-  voteCount      Int?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -90,7 +108,7 @@ model Watchlist {
   date    DateTime @default(now())
 
   user User @relation(fields: [id_user], references: [id_user])
-  show Show @relation(fields: [id_show], references: [id_show])
+  show Shows @relation(fields: [id_show], references: [id_show])
 
   @@unique([id_user, id_show])
 }
@@ -102,7 +120,7 @@ model Favorite {
   date    DateTime @default(now())
 
   user User @relation(fields: [id_user], references: [id_user])
-  show Show @relation(fields: [id_show], references: [id_show])
+  show Shows @relation(fields: [id_show], references: [id_show])
 
   @@unique([id_user, id_show])
 }
@@ -118,7 +136,7 @@ model Review {
   updatedAt  DateTime @updatedAt
 
   user       User     @relation(fields: [id_user], references: [id_user])
-  show       Show?    @relation(fields: [id_show], references: [id_show])
+  show       Shows?    @relation(fields: [id_show], references: [id_show])
   season     Season?  @relation(fields: [id_season], references: [id_season])
   rating     Rating?  @relation(fields: [id_rating], references: [id])
   log        Log[]
@@ -134,7 +152,7 @@ model Rating {
   updatedAt   DateTime @updatedAt
 
   user       User     @relation(fields: [id_user], references: [id_user])
-  show       Show?    @relation(fields: [id_show], references: [id_show])
+  show       Shows?    @relation(fields: [id_show], references: [id_show])
   season     Season?  @relation(fields: [id_season], references: [id_season])
   review     Review[] 
   log        Log[]
@@ -156,7 +174,7 @@ model Log {
   updatedAt   DateTime  @updatedAt
 
   user        User      @relation(fields: [id_user], references: [id_user])
-  show        Show?     @relation(fields: [id_show], references: [id_show])
+  show        Shows?     @relation(fields: [id_show], references: [id_show])
   season      Season?   @relation(fields: [id_season], references: [id_season])
   review      Review?   @relation(fields: [id_review], references: [id])
   rating      Rating?   @relation(fields: [id_rating], references: [id])
