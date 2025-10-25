@@ -3,18 +3,7 @@
 ## **Pendências Features**
 
  **Implementar seguintes Features:**
- - ⚡️Login
  - ⚡️Home Page 
-
- 
-## Dependências da API
-👩‍💻 Criar algoritmo para popular Banco
-
-🧠 Criar Features dependentes da API:
- - ⚡️Shows
- - ⚡️Seasons
- - ⚡️Episodes
-
 
 ## Conectando ao MySQL
 Run the following command

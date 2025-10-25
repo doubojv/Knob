@@ -12,6 +12,13 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+ // Simple login endpoint - accepts { nome, senha } and returns the user if credentials match
+  @Post('login')
+  async login(@Body() body: { nome: string; senha: string }) {
+    const { nome, senha } = body;
+    return this.userService.login(nome, senha);
+  } 
+
   @Get()
   findAll() {
     return this.userService.findAll();
