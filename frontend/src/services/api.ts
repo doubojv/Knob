@@ -21,18 +21,24 @@ interface UserDto {
   email: string;
 }
 
+interface LoginResponse {
+  user: UserDto;
+  error?: string;
+}
+
 export const authService = {
   // Login: POST /users/login -> { user } or { error }
-  async login(username: string, password: string): Promise<UserDto> {
+  async login(username: string, password: string): Promise<LoginResponse> {
     const response = await api.post('/users/login', {
       nome: username,
       senha: password, // backend expects 'senha'
     });
-    // backend may return { error: '...' } or { user }
-    if (response.data && (response.data as any).error) {
-      throw new Error((response.data as any).error);
+    
+    const data = response.data;
+    if (data.error) {
+      throw new Error(data.error);
     }
-    return (response.data as any).user;
+    return data; // retorna o objeto completo { user }
   },
 
   // Signup: POST /users -> created user
@@ -48,10 +54,11 @@ export const authService = {
   // Logout
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   },
 
   // Verifica se está autenticado
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('user');
   }
 };

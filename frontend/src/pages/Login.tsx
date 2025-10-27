@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/auth.css'
 import { authService } from '../services/api'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -9,6 +10,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
+  const { setUser } = useAuth()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -16,9 +18,10 @@ export default function Login() {
     setError(null)
 
     try {
-      const user = await authService.login(username, password)
-      if (!user) throw new Error('Invalid credentials')
+      const response = await authService.login(username, password)
+      if (!response.user) throw new Error('Invalid credentials')
       // Login successful
+      setUser(response.user)
       navigate('/')
     } catch (err: any) {
       setError(err.message || 'Unknown error')
@@ -36,12 +39,12 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="auth-form">
           <label>
             Username
-            <input value={username} onChange={e => setUsername(e.target.value)} type="username" required className='input'/>
+            <input value={username} onChange={e => setUsername(e.target.value)} type="username" required className='input' style={{ color: '#000000ff' }}/>
           </label>
 
           <label>
             Password
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" required className="input" />
+            <input value={password} onChange={e => setPassword(e.target.value)} type="password" required className="input" style={{ color: '#000000ff' }} />
           </label>
 
           {error && <div style={{ color: 'salmon' }}>{error}</div>}
