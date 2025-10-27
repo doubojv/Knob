@@ -1,9 +1,9 @@
 /* Styles inspired by the provided mockup */
 :root{
-  --topbar-bg: #e6e6e6;
+  --topbar-bg: #1B244F;
   --topbar-height: 64px;
   --accent: #6d6c6c;
-  --card-frame: #dcdcdc;
+  --card-frame: #0C1022;
   --card-inner: #6f6a6a;
   --input-bg: #ffffff;
 }
@@ -11,6 +11,11 @@
 body {
   background: #ffffff;
   color: #333;
+}
+
+html, body {
+  background: #0C1022; /* Define o fundo escuro para toda a página */
+  color: #f0f0f0; /* Garante que o texto padrão do body seja claro */
 }
 
 /* Ensure the app fills the full viewport and account for the topbar height */
@@ -40,11 +45,29 @@ html, body, #root {
   align-items:center;
   gap:18px;
 }
+.topbar.transparent {
+    background: transparent;
+    box-shadow: none; /* Remova a sombra para um efeito mais limpo */
+}
+
+/* Ajuste as cores dos links dentro da Topbar Transparente para branco/claro */
+.topbar.transparent .nav-links a,
+.topbar.transparent .logo-circle span {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Sombra para melhorar a legibilidade sobre o fundo variável */
+}
+
+/* Ajuste o input de busca se ele estiver na topbar */
+.topbar.transparent .search-input {
+    background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
 .logo-circle{
   width:48px;
   height:48px;
   border-radius:50%;
-  background: #d9b5b5;
+  background: #f4aa4f;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -55,7 +78,7 @@ html, body, #root {
   display:flex;
   gap:18px;
   font-weight:600;
-  color: #4a4a4a;
+  color: #ffffff;
 }
 .nav-links a{ text-decoration:none; color:inherit }
 
@@ -65,10 +88,11 @@ html, body, #root {
   align-items:center;
 }
 .search-input{
+  color: #e6e1e1;
   width:220px;
   padding:6px 10px;
   border-radius:6px;
-  border:1px solid rgba(0,0,0,0.08);
+  background-color: #5C83C4;    
 }
 .auth-btn{ 
   padding:8px 12px; 
@@ -78,6 +102,29 @@ html, body, #root {
   cursor:pointer;
   text-decoration: none;
   color: inherit;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #ffffff;
+  margin-right: 8px;
 }
 
 .hero-frame{
@@ -150,17 +197,85 @@ html, body, #root {
 .dot{ width:10px; height:10px; border-radius:50%; background:#3a3a3a; opacity:0.45 }
 .dot.active{ opacity:1; background:#222 }
 
-@media (max-width:700px){
-  .nav-links{ display:none }
-  .search-input{ display:none }
-  .hero-frame{ margin:0; padding: 16px }
+
+/* Trending shows styles */
+.trending-section{ margin-top: 18px }
+.trending-section h3{ color: #4a4a4a; margin-bottom: 12px }
+.trending-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
 }
 
-.input {
-  color: #4a4a4a;
-  background: #fff;
+/* Variant for small hero-card used in grids */
+.hero-card.card-item {
+  position: relative; /* necessário para posicionar antenas corretamente */
+
+  color: #ffffff;
+  padding: 1px;
   border-radius: 8px;
-  padding: 10px 12px;
-  border: none;
+  border: 8px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  margin-top: 20px; /* cria espaço visual entre antena e grid */
+}
+
+/* Antenas */
+.hero-card.card-item::before,
+.hero-card.card-item::after {
+  content: "";
+  position: absolute;
+  top: -25px; /* altura acima do card */
+  width: 3px;
+  height: 18px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 2px;
+}
+
+.hero-card.card-item::before {
+  left: 50%;
+  transform: translateX(-5px) rotate(-30deg);
+}
+
+.hero-card.card-item::after {
+  left: 50%;
+  transform: translateX(4px) rotate(30deg);
+}
+
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-greeting {
+  color: #4a4a4a;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  margin: 24px 0 36px;
+}
+
+.trending-header {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.trending-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 1500px;
+}
+
+.trending-wrapper {
   width: 100%;
 }

@@ -22,7 +22,7 @@ export class SeasonController {
     return this.seasonService.findOne(+id);
   }
 
-  @Get('show/:showId')
+  @Get('shows/:showId')
   findByShowId(@Param('showId') showId: string) {
     return this.seasonService.findByShowId(+showId);
   }

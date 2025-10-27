@@ -161,7 +161,22 @@ export class ShowsService {
   // Retorna uma série pelo TMDB ID
   async getShow(tmdbId: number) {
     return this.prisma.shows.findUnique({
-      where: { tmdbId },
+      where: { tmdbId: tmdbId },
+      include: {
+        seasons: {
+          include: {
+            episodes: true
+          }
+        }
+      },
+    });
+  }
+
+  async getShowByIdShow(id_show: number) { 
+    return this.prisma.shows.findUnique({
+      where: { 
+        id_show: id_show // 👈 O Prisma busca o show usando o ID primário
+      },
       include: {
         seasons: {
           include: {

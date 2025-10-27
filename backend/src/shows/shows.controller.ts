@@ -5,6 +5,13 @@ import { ShowsService } from './shows.service';
 export class ShowsController {
   constructor(private readonly showsService: ShowsService) {}
 
+
+  @Get(':id') // 👈 Use um nome de parâmetro genérico, ex: 'id'
+  async getShowByIdShow(@Param('id') id: string) {
+    // Chama a nova função do serviço. O frontend passa o ID primário.
+    return this.showsService.getShowByIdShow(Number(id)); 
+  }
+  
   @Get(':tmdbId')
   async getShow(@Param('tmdbId') tmdbId: string) {
     return this.showsService.getShow(Number(tmdbId));

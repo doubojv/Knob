@@ -33,17 +33,17 @@ export default function SignUp() {
         <form onSubmit={handleSubmit} className="auth-form">
           <label>
             Email
-            <input value={email} onChange={e => setEmail(e.target.value)} type="email" required className="input"/>
+            <input value={email} onChange={e => setEmail(e.target.value)} type="email" required className="input" style={{ color: '#000000ff' }}/>
           </label>
 
           <label>
             Username
-            <input value={username} onChange={e => setUsername(e.target.value)} required className="input"/>
+            <input value={username} onChange={e => setUsername(e.target.value)} required className="input" style={{ color: '#000000ff' }}/>
           </label>
 
           <label>
             Password
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" required className="input"/>
+            <input value={password} onChange={e => setPassword(e.target.value)} type="password" required className="input" style={{ color: '#000000ff' }}/>
           </label>
 
           {error && <div style={{ color: 'salmon' }}>{error}</div>}

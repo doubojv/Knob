@@ -1,0 +1,283 @@
+/* src/styles/showPage.css */
+
+.show-page-container {
+    min-height: 100vh;
+    padding-bottom: 50px;
+    background-color: #0C1022; /* Cor de fundo da página */
+}
+
+/* --- Backdrop Section --- */
+.backdrop {
+    position: relative;
+    height: 600px; /* Altura da imagem de fundo */
+    background-size: cover;
+    background-position: top center;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* * Degradê ajustado: 
+     * - Começa com a cor da lateral (#0C1022) na parte inferior (0%)
+     * - Transiciona para uma cor similar mais transparente (40%)
+     * - Termina totalmente transparente no topo (100%)
+     */
+    background: 
+        /* Degradê inferior: de baixo para cima */
+        linear-gradient(to top, 
+            rgba(12, 16, 34, 1) 0%,          /* #0C1022 - Fundo escuro total na base */
+            rgba(12, 16, 34, 0.6) 40%,       /* #0C1022 com 60% de opacidade */
+            rgba(0, 0, 0, 0) 100%            /* Totalmente transparente no topo */
+        ),
+        /* Degradê lateral esquerdo: da esquerda para a direita (preenchendo 15% da largura) */
+        linear-gradient(to right, 
+            rgba(12, 16, 34, 1) 0%,          /* #0C1022 - Começa escuro na esquerda */
+            rgba(12, 16, 34, 0) 15%          /* Transparente em 15% da largura */
+        ),
+        /* Degradê lateral direito: da direita para a esquerda (preenchendo 15% da largura) */
+        linear-gradient(to left, 
+            rgba(12, 16, 34, 1) 0%,          /* #0C1022 - Começa escuro na direita */
+            rgba(12, 16, 34, 0) 15%          /* Transparente em 15% da largura */
+        );
+}
+
+/* --- Content Wrapper --- */
+.show-content-wrapper {
+    max-width: 1200px;
+    margin: -300px auto 0; /* Move o conteúdo para cima do backdrop */
+    padding: 0 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.show-header {
+    display: flex;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+/* --- Poster Column --- */
+.poster-col {
+    flex-shrink: 0;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.show-poster {
+    width: 100%;
+    display: block;
+}
+
+/* --- Details Column --- */
+.details-col {
+    flex-grow: 1;
+    color: #ffffff;
+}
+
+.show-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.tagline {
+    font-style: italic;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.show-meta span {
+    margin-right: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.show-info-line {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.info-label {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #ffffff;
+}
+
+.overview-text {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+/* --- Actions Section --- */
+.actions-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.rating-pill {
+    background-color: #e6e6e6;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* src/styles/showPage.css */
+
+/* --- SEÇÃO DE TEMPORADAS (SeasonsList) --- */
+
+/* ... (seasons-container, seasons-scroll-track, scrollbar-hidden) ... */
+
+/* --- Cards de Temporada --- */
+.seasons-container {
+    position: relative;
+    margin: 20px 0;
+    padding: 0 50px; /* Padding para os botões laterais não ficarem colados */
+}
+
+.seasons-scroll-track {
+    /* 🚨 CORREÇÃO: Disposição horizontal */
+    display: flex; /* Faz os itens ficarem lado a lado */
+    overflow-x: auto; /* Permite a rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhor rolagem em dispositivos touch */
+    scroll-behavior: smooth; /* Rolagem suave ao clicar nos botões */
+    
+    /* 🚨 CORREÇÃO: Espaçamento entre os cards */
+    gap: 20px; /* Espaço entre cada card de temporada */
+    
+    padding-bottom: 20px; /* Espaço inferior para a barra de rolagem não ficar colada */
+}
+
+/* Esconde a barra de rolagem padrão, mas mantém a funcionalidade */
+.seasons-scroll-track::-webkit-scrollbar {
+    display: none;
+}
+.seasons-scroll-track {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* ... (seasons-scroll-track, scrollbar-hidden) ... */
+
+/* --- Cards de Temporada --- */
+.season-card {
+    flex-shrink: 0; /* IMPORANTE: Garante que os cards não encolham */
+    width: 180px; 
+    border-radius: 8px;
+    overflow: hidden; 
+    background-color: #1a1a1a; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.season-card:hover {
+    transform: translateY(-5px);
+}
+
+.season-poster-wrapper {
+    position: relative;
+    height: 270px; 
+}
+
+.season-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.season-rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.season-info {
+    padding: 10px;
+    text-align: center;
+    color: #f0f0f0;
+}
+
+.season-name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #ffffff; /* Ajuste para cor clara */
+}
+
+.rate-text {
+    font-size: 0.85rem;
+    color: #bbb; /* Cor de texto mais suave */
+}
+
+/* --- Botões de Rolagem --- */
+.scroll-btn {
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%; /* Botão redondo */
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1; /* Garante que o texto '<' ou '>' fique centralizado */
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+
+.scroll-btn.left {
+    left: 10px; /* Ajuste a posição para não colidir com o padding do container */
+}
+
+.scroll-btn.right {
+    right: 10px; /* Ajuste a posição */
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.section-title {
+    /* 🚨 CORREÇÃO: Aumentar o tamanho e aplicar negrito */
+    font-size: 1.5rem; /* Aumentado de 2rem para 2.5rem */
+    font-weight: 700; /* Forte negrito */
+    color: #ffffff; 
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
