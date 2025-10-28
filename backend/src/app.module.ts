@@ -11,6 +11,7 @@ import { LogModule } from './log/log.module';
 import { FriendshipModule } from './friendship/friendship.module';
 import { SeasonModule } from './season/season.module';
 import { EpisodeModule } from './episode/episode.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { EpisodeModule } from './episode/episode.module';
     LogModule,
     FriendshipModule,
     SeasonModule,
-    EpisodeModule
+    EpisodeModule,
+    SearchModule,
   ],
   controllers: [],
   providers: [],

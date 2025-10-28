@@ -75,8 +75,17 @@
 
 /* --- Details Column --- */
 .details-col {
-    flex-grow: 1;
-    color: #ffffff;
+    /* Define Flexbox no contêiner */
+    display: flex;
+    /* Faz os itens se empilharem verticalmente */
+    flex-direction: column; 
+    /* Garante que o conteúdo comece no topo */
+    align-items: flex-start;
+    /* Permite que o conteúdo interno (como actions-section) se mova para a direita */
+    width: 100%;
+    
+    /* Adicione um padding ou margin aqui se precisar de espaçamento */
+    padding-left: 30px; /* Exemplo: espaço entre o poster e os detalhes */
 }
 
 .show-title {
@@ -118,24 +127,71 @@
 
 /* --- Actions Section --- */
 .actions-section {
+    /* FLUTUA A SECTION SEM EMPURRAR OUTROS ITENS */
+    position: absolute;
+    top: 0; /* Alinha no topo de show-content-wrapper */
+    right: 0; /* Alinha na direita de show-content-wrapper */
+    z-index: 10;
+    
+    /* ESTILOS DE EMPILHAMENTO (QUE VOCÊ JÁ TINHA) */
     display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-top: 30px;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha itens da actions-section à direita */
+    gap: 2px; /* Ajustei o gap, 30px parecia muito grande */
+    margin-top: 0; /* Não precisa de margin-top */
 }
 
-.rating-pill {
-    background-color: #e6e6e6;
-    padding: 10px 15px;
-    border-radius: 50%;
-    font-size: 1.5rem;
+/* O contêiner principal que substitui o .rating-pill antigo */
+.rating-pill-container {
+    /* Mantém o espaçamento que você tinha para alinhar com os botões */
+    margin-right: 14px; 
+    /* Podemos usar Flexbox para centralizar a 'TV' se precisar de outros elementos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Define o tamanho da "TV" */
+    width: 80px; 
+    height: 80px; 
+}
+
+.tv-screen-border {
+    /* A moldura externa da TV */
+    background-color: #1A234E; /* Cor escura para a moldura (plástico da TV) */
+    border: 3px solid #5B82C3; /* Uma borda para dar profundidade */
+    border-radius: 8px; /* Cantos levemente arredondados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra para destacar */
+    padding: 5px; /* Espaço entre a moldura e a tela */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.tv-screen-inner {
+    /* A "Tela" onde a nota aparece */
+    background-color: #1A234E; /* Fundo bem escuro (tela desligada/profunda) */
+    color: #F48221; /* Cor verde neon/fosforescente para a nota (como um LED ou tubo) */
+    border-radius: 3px; /* Cantos levemente arredondados para a tela */
+    padding: 5px 10px;
+    
+    font-size: 1.4rem; /* Tamanho da fonte para a nota */
     font-weight: bold;
-    color: #333;
+    
+    /* Centraliza o texto (se for um display maior) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Cria a ilusão de um tubo de raio catódico */
 }
 
 .user-actions {
     display: flex;
-    gap: 10px;
+    gap: 0px;
+    flex-direction: column;
 }
 
 .action-btn {
@@ -145,6 +201,7 @@
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    
 }
 
 /* src/styles/showPage.css */

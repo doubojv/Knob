@@ -17,6 +17,11 @@ export class ShowsController {
     return this.showsService.getShow(Number(tmdbId));
   }
 
+  @Get('tmdb/:tmdbId')
+  async findByTmdbId(@Param('tmdbId') tmdbId: number) {
+  return this.showsService.getShowByTmdbid(+tmdbId);
+}
+
   @Get()
   async getAllShows() {
     return this.showsService.getAllShows();
