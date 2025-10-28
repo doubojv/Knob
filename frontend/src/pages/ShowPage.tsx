@@ -135,6 +135,21 @@ export default function ShowPage() {
 
             {/* Coluna de Texto e Detalhes */}
             <div className="details-col">
+                <div className="actions-section">
+                    <div className="rating-pill-container"> {/* Novo Contêiner da TV */}
+                        <div className="tv-screen-border"> {/* Moldura da Tela */}
+                            <div className="tv-screen-inner">
+                                {voteAverage ? voteAverage.toFixed(2) : 'N/A'}
+                            </div>
+                        </div>
+                    </div>
+                    {/* Botões de Ação (Review, Favorite, Watchlist) */}
+                    <div className="user-actions">
+                        <button className="action-btn text-black">Review</button>
+                        <button className="action-btn text-black">Favorite</button>
+                        <button className="action-btn text-black">Watchlist</button>
+                    </div>
+                </div>
                 <h1 className="show-title text-white">{name}</h1>
                 
                 {tagline && <p className="tagline">"{tagline}"</p>}
@@ -166,18 +181,6 @@ export default function ShowPage() {
 
                 {/* Sinopse */}
                 <p className="overview-text">{overview}</p>
-
-                <div className="actions-section">
-                    <div className="rating-pill">
-                        {voteAverage ? voteAverage.toFixed(2) : 'N/A'}
-                    </div>
-                    {/* Botões de Ação (Review, Favorite, Watchlist) */}
-                    <div className="user-actions">
-                        <button className="action-btn">Review</button>
-                        <button className="action-btn">Favorite</button>
-                        <button className="action-btn">Watchlist</button>
-                    </div>
-                </div>
             </div>
         </div>
         

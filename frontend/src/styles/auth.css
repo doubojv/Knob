@@ -74,14 +74,23 @@ html, body, #root {
   box-shadow: inset 0 -4px 0 rgba(0,0,0,0.06);
 }
 .logo-circle span{font-weight:700;color:#fff}
+
 .nav-links{
   display:flex;
   gap:18px;
   font-weight:600;
   color: #ffffff;
 }
-.nav-links a{ text-decoration:none; color:inherit }
+.nav-links a{ 
+  text-decoration:none; 
+  color:inherit
+ }
 
+/* ESTILO AO PASSAR O MOUSE */
+.nav-links a:hover {
+    /* Cor laranja que você pediu. Use o código HEX de sua preferência. */
+    color: #F38221; /* Este é o laranja que você usou no nome de usuário! */
+}
 .topbar .right{
   display:flex;
   gap:12px;
@@ -98,10 +107,10 @@ html, body, #root {
   padding:8px 12px; 
   border-radius:6px; 
   border:none; 
-  background:#fff; 
+  background:#F38120; 
   cursor:pointer;
   text-decoration: none;
-  color: inherit;
+  color: #fff;
 }
 
 .user-profile {
@@ -126,6 +135,198 @@ html, body, #root {
   color: #ffffff;
   margin-right: 8px;
 }
+
+/* --- Estilos Gerais de Fundo (Novo Layout) --- */
+.login-page-wrapper {
+    /* O fundo da tela inteira, que era .hero-frame */
+    background-color: #121c32; /* Azul Marinho Escuro de Fundo */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* --- Container do Formulário (O Card, que era .hero-card) --- */
+.login-form-container {
+    background-color: #1a2745; /* Fundo do Card (Azul um pouco mais claro) */
+    width: 100%;
+    max-width: 450px;
+    padding: 50px 40px; /* Mais padding para um visual espaçoso */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
+    
+    /* Remover completamente os estilos de TV/Antena */
+    border: none;
+    box-sizing: content-box;
+}
+
+/* Antenas e .dots (Remover) */
+.hero-card::before, .hero-card::after, .dots {
+    display: none;
+}
+
+/* --- Título e Destaque --- */
+.login-title {
+    text-align: center;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.highlight-knob {
+    color: #f4aa4f; /* Laranja de Destaque */
+}
+
+/* --- Estilos do Formulário --- */
+.auth-form-new {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    position: relative;
+    display: flex; 
+    align-items: center;
+}
+
+/* O Campo de Input Principal */
+.styled-input {
+    width: 100%;
+    padding: 15px 15px 15px 50px; /* Mais padding para o texto caber com o ícone */
+    border: 1px solid #365089; /* Borda sutil */
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #5C83C4; /* Azul do campo de input */
+    color: white; 
+    transition: border-color 0.3s;
+}
+
+.styled-input::placeholder {
+    color: #bbb;
+}
+
+.styled-input:focus {
+    border-color: #f4aa4f; /* Borda laranja ao focar */
+    outline: none;
+}
+
+/* Opcional: Estilo para ícones se você os implementar (ex: FaUser/FaLock) */
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #99a; 
+    font-size: 1.2rem;
+}
+
+.icon-wrapper {
+    /* 🚨 MUDANÇA CRÍTICA: Remova o posicionamento absoluto se você usou Flexbox no pai. */
+    /* Se você não quiser mudar o Flexbox, mantenha as regras abaixo: */
+    
+    position: absolute;
+    top: 50%; 
+    left: 15px; 
+    transform: translateY(-50%); /* <--- ESTE DEVERIA CENTRALIZAR */
+    
+    /* Z-index é importante */
+    z-index: 2; 
+    
+    /* ... estilos de barra (padding-right e border-right) ... */
+}
+
+
+/* --- Opções e Links --- */
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 8px;
+    /* Estilize o checkbox para corresponder ao seu design se necessário */
+}
+
+.forgot-password-link {
+    color: #f4aa4f; /* Laranja */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-password-link:hover {
+    color: #ffc17d;
+    text-decoration: underline;
+}
+
+/* --- Botão de Login --- */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #F38221; /* Laranja Principal */
+    color: #1a2745; /* Cor do texto no botão */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover:not(:disabled) {
+    background-color: #e09745;
+}
+
+.login-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* --- Link de Cadastro no final --- */
+.signup-link-container {
+    text-align: center;
+    margin-top: 40px;
+    color: #ccc;
+}
+
+.create-account-link {
+    color: #f4aa4f; /* Laranja */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.auth-form{ display:flex; flex-direction:column; gap:12px; margin-top:12px }
+.auth-form label{ font-size:0.85rem; color:#e6e1e1; display: block; margin-bottom: 4px; }
+.auth-form input{ 
+  width:100%; 
+  padding:10px 12px; 
+  border-radius:8px; 
+  border:none; 
+  background:var(--input-bg);
+  margin-top: 4px;
+}
+.auth-form .actions{ display:flex; gap:12px; justify-content:center; margin-top:8px }
+.auth-form button{ padding:10px 18px; border-radius:8px; border:none; cursor:pointer; min-width: 120px; }
+.primary{ background:#f3f3f3; color:#333 }
+.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.14); color:#f3f3f3 }
+
+.dots{ display:flex; gap:8px; justify-content:center; margin-top:14px }
+.dot{ width:10px; height:10px; border-radius:50%; background:#3a3a3a; opacity:0.45 }
+.dot.active{ opacity:1; background:#222 }
 
 .hero-frame{
   width: 100%;
@@ -152,51 +353,6 @@ html, body, #root {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* sombra suave */
   transition: all 0.3s ease;  /* animação sutil em hover, se quiser adicionar depois */
 }
-
-/* As duas antenas */
-.hero-card::before,
-.hero-card::after {
-  content: "";
-  position: absolute;
-  top: -25px; /* altura acima do card */
-  width: 4px; /* espessura da antena */
-  height: 25px; /* comprimento */
-  background-color: #5e4b4b; /* mesma cor da borda */
-  border-radius: 2px;
-}
-
-/* Posiciona cada uma */
-.hero-card::before {
-  left: 40%; /* posição horizontal da primeira antena */
-  transform: rotate(-20deg);
-  transform: 
-}
-
-.hero-card::after {
-  right: 40%; /* posição horizontal da segunda antena */
-  transform: rotate(20deg);
-}
-.hero-card h2{ text-align:center; margin-top:0; color:#f3f0f0 }
-
-.auth-form{ display:flex; flex-direction:column; gap:12px; margin-top:12px }
-.auth-form label{ font-size:0.85rem; color:#e6e1e1; display: block; margin-bottom: 4px; }
-.auth-form input{ 
-  width:100%; 
-  padding:10px 12px; 
-  border-radius:8px; 
-  border:none; 
-  background:var(--input-bg);
-  margin-top: 4px;
-}
-.auth-form .actions{ display:flex; gap:12px; justify-content:center; margin-top:8px }
-.auth-form button{ padding:10px 18px; border-radius:8px; border:none; cursor:pointer; min-width: 120px; }
-.primary{ background:#f3f3f3; color:#333 }
-.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.14); color:#f3f3f3 }
-
-.dots{ display:flex; gap:8px; justify-content:center; margin-top:14px }
-.dot{ width:10px; height:10px; border-radius:50%; background:#3a3a3a; opacity:0.45 }
-.dot.active{ opacity:1; background:#222 }
-
 
 /* Trending shows styles */
 .trending-section{ margin-top: 18px }
@@ -278,4 +434,73 @@ html, body, #root {
 
 .trending-wrapper {
   width: 100%;
+}
+
+.search-dropdown div {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-dropdown div:hover {
+  background-color: #f4aa4f;
+  color: black;
+}
+
+.search-dropdown {
+    position: absolute;
+    /* top: 60px; REMOVA se a barra for menor ou se quiser que ele comece imediatamente abaixo do input */
+    top: 45px; /* Valor ajustado, geralmente a altura da barra */
+    
+    /* Centraliza o dropdown DENTRO do seu novo pai relativo: */
+    left: 0; /* Alinha o dropdown com a borda ESQUERDA do input/search-container */
+    
+    background-color: #1f3568;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    
+    /* Ocupa a largura total do input/search-container: */
+    width: 100%; 
+    
+    z-index: 100;
+    overflow: hidden;
+}
+
+/* Adicione um estilo básico para o input para definir a largura do contêiner pai */
+.search-container .search-input {
+    width: 240px; /* Garante que o input e o dropdown tenham a mesma largura */
+}
+
+.search-item {
+  display: flex;
+  align-items: center; /* alinha verticalmente imagem e texto */
+  gap: 10px; /* espaço entre a imagem e o texto */
+  padding: 8px;
+  cursor: pointer;
+  background-color: #1B244F;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.2s;
+}
+
+.search-item:hover {
+  background-color: #2a2a2a;
+}
+
+.search-poster {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.search-item span {
+  color: white;
+  font-size: 14px;
+}
+
+/* Se o rodapé estiver muito colado no botão, adicione um espaçamento no container principal */
+.login-form-container {
+    /* ... outros estilos ... */
+    margin-bottom: 20px; 
 }

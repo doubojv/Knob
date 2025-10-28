@@ -20,7 +20,7 @@ export class ShowsService {
     if (hasComedy) return 'Comedy';
     return 'Other';
   }
-
+  
   async syncShow(tmdbId: number) {
     const [showData, creditsData] = await Promise.all([
       this.tmdbService.getShowDetails(tmdbId),
@@ -186,4 +186,19 @@ export class ShowsService {
       },
     });
   }
+  async getShowByTmdbid(tmdbId: number) { 
+    return this.prisma.shows.findUnique({
+      where: { 
+        tmdbId: tmdbId // 👈 O Prisma busca o show usando o ID primário
+      },
+      include: {
+        seasons: {
+          include: {
+            episodes: true
+          }
+        }
+      },
+    });
+  }
+
 }
